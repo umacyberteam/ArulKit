@@ -59,7 +59,7 @@ lib/
     detect-platform.ts       # deteksi platform dari URL
     index.ts                 # resolver: pilih provider yang tepat, dengan fallback
     providers/
-      cobalt.ts               # provider utama (self-hosted, lihat bagian API di bawah)
+      SocialKit.ts               # provider utama (self-hosted, lihat bagian API di bawah)
       tikwm.ts                 # fallback gratis khusus TikTok, tanpa perlu setup
   security/
     ssrf.ts                  # validasi URL, blokir IP privat/internal, dipakai View Source
@@ -112,30 +112,30 @@ dan kalau tidak ada API layak → dibuat abstraction layer, bukan API palsu.
 - Batas resmi: 200MB per file — sudah divalidasi di `app/api/catbox/route.ts`.
 - **Gratis, tidak butuh pembayaran.**
 
-### 2. All-in-One Downloader → Cobalt (self-hosted) + tikwm (fallback TikTok)
+### 2. All-in-One Downloader → SocialKit (self-hosted) + tikwm (fallback TikTok)
 
 Tidak ada API YouTube/Instagram/TikTok gabungan yang **resmi, gratis, dan legal** untuk pihak
 ketiga:
 - API resmi YouTube (Data API v3) **tidak menyediakan** download video (melanggar ToS kalau dipaksakan).
-- Instance publik `api.cobalt.tools` **tidak untuk dipakai aplikasi pihak ketiga** — pemiliknya
+- Instance publik `api.SocialKit.tools` **tidak untuk dipakai aplikasi pihak ketiga** — pemiliknya
   eksplisit meminta integrator untuk **self-host** instance sendiri (lihat
-  https://github.com/imputnet/cobalt/blob/main/docs/api.md).
+  https://github.com/imputnet/SocialKit/blob/main/docs/api.md).
 
 Karena itu ArulKit memakai pola **provider interface** (`lib/downloader/types.ts` →
 `DownloaderProvider`):
 
 | Provider | Platform | Butuh setup? | Catatan |
 |---|---|---|---|
-| **Cobalt** (`lib/downloader/providers/cobalt.ts`) | YouTube, Instagram, TikTok | Ya — deploy instance sendiri | Open-source (AGPL-3.0), https://github.com/imputnet/cobalt. Bisa deploy gratis lewat Railway/Fly.io/VPS sendiri, atau Docker. Set `COBALT_API_URL` ke base URL instance-mu. |
-| **tikwm** (`lib/downloader/providers/tikwm.ts`) | TikTok saja | Tidak — jalan langsung | API publik gratis tanpa key (https://www.tikwm.com), dipakai sebagai fallback zero-config supaya TikTok tetap jalan sebelum kamu setup Cobalt. Unofficial & rate-limited (~1 req/detik), bisa berubah sewaktu-waktu. |
+| **SocialKit** (`lib/downloader/providers/SocialKit.ts`) | YouTube, Instagram, TikTok | Ya — deploy instance sendiri | Open-source (AGPL-3.0), https://github.com/imputnet/SocialKit. Bisa deploy gratis lewat Railway/Fly.io/VPS sendiri, atau Docker. Set `SOCIALKIT_API_KEY` ke base URL instance-mu. |
+| **tikwm** (`lib/downloader/providers/tikwm.ts`) | TikTok saja | Tidak — jalan langsung | API publik gratis tanpa key (https://www.tikwm.com), dipakai sebagai fallback zero-config supaya TikTok tetap jalan sebelum kamu setup SocialKit. Unofficial & rate-limited (~1 req/detik), bisa berubah sewaktu-waktu. |
 
-**Kalau `COBALT_API_URL` belum diisi:** TikTok tetap berfungsi lewat tikwm, tapi YouTube & Instagram
+**Kalau `SOCIALKIT_API_KEY` belum diisi:** TikTok tetap berfungsi lewat tikwm, tapi YouTube & Instagram
 akan menampilkan pesan "belum dikonfigurasi" (HTTP 501) — bukan error palsu atau data bohongan.
 
-**Biaya:** Cobalt sendiri gratis (open-source), tapi kamu perlu **hosting** untuk instance-nya.
+**Biaya:** SocialKit sendiri gratis (open-source), tapi kamu perlu **hosting** untuk instance-nya.
 Opsi gratis/murah: Railway (free trial/hobby tier terbatas), Fly.io (free allowance terbatas), atau
-VPS murah (~$3–5/bulan). Tidak ada biaya API key karena Cobalt tidak butuh API key kecuali kamu
-mengaktifkan `API_AUTH_REQUIRED` di instance-mu sendiri (lalu isi `COBALT_API_KEY` di ArulKit).
+VPS murah (~$3–5/bulan). Tidak ada biaya API key karena SocialKit tidak butuh API key kecuali kamu
+mengaktifkan `API_AUTH_REQUIRED` di instance-mu sendiri (lalu isi `SOCIALKIT_API_KEY` di ArulKit).
 
 **Kepatuhan:** downloader ini hanya alat teknis untuk mengambil media dari link yang kamu masukkan
 sendiri — pastikan dipakai untuk konten yang memang kamu punya hak/izin (koleksi pribadi, konten
@@ -174,8 +174,8 @@ Lihat `.env.example` untuk daftar lengkap beserta komentarnya. Ringkasan:
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | Disarankan | Dipakai untuk metadata, sitemap, robots.txt |
 | `CATBOX_USERHASH` | Opsional | Supaya upload tersambung ke akun Catbox-mu |
-| `COBALT_API_URL` | Opsional* | *Wajib kalau mau downloader YouTube/Instagram jalan | 
-| `COBALT_API_KEY` | Opsional | Hanya kalau instance Cobalt-mu pakai auth |
+| `SOCIALKIT_API_KEY` | Opsional* | *Wajib kalau mau downloader YouTube/Instagram jalan | 
+| `SOCIALKIT_API_KEY` | Opsional | Hanya kalau instance SocialKit-mu pakai auth |
 | `VIEW_SOURCE_TIMEOUT_MS` | Opsional | Default 8000 |
 | `VIEW_SOURCE_MAX_BYTES` | Opsional | Default 2000000 (~2MB) |
 | `NEXT_PUBLIC_TAWKTO_PROPERTY_ID` | Opsional | Widget Tawk.to tidak muncul kalau kosong |
@@ -190,7 +190,7 @@ Lihat `.env.example` untuk daftar lengkap beserta komentarnya. Ringkasan:
 1. Push repo ini ke GitHub.
 2. Import project di [vercel.com/new](https://vercel.com/new) — Vercel otomatis mendeteksi Next.js.
 3. Di **Project Settings → Environment Variables**, isi variabel dari tabel di atas (minimal
-   `NEXT_PUBLIC_SITE_URL`; isi `COBALT_API_URL` kalau instance Cobalt-mu sudah siap; isi kredensial
+   `NEXT_PUBLIC_SITE_URL`; isi `SOCIALKIT_API_KEY` kalau instance SocialKit-mu sudah siap; isi kredensial
    Tawk.to kalau sudah bikin akun).
 4. Deploy. Lalu di **Project Settings → Domains**, tambahkan `arulkit.my.id` dan arahkan DNS
    (CNAME/A record) sesuai instruksi Vercel.
@@ -210,9 +210,9 @@ Lihat `.env.example` untuk daftar lengkap beserta komentarnya. Ringkasan:
   lama) merender og:image PNG/JPG lebih konsisten daripada SVG. Disarankan generate versi PNG
   (mis. lewat `@vercel/og` atau export manual) sebelum production penuh.
 - **tikwm** adalah API tidak resmi — bisa berubah struktur responnya sewaktu-waktu tanpa
-  pemberitahuan. Kalau suatu saat berhenti berfungsi, arahkan TikTok juga lewat Cobalt (`COBALT_API_URL`).
-- **Cobalt** butuh instance yang kamu jalankan & rawat sendiri (bukan layanan yang otomatis selalu
-  aktif) — lihat https://github.com/imputnet/cobalt/blob/main/docs/run-an-instance.md untuk cara
+  pemberitahuan. Kalau suatu saat berhenti berfungsi, arahkan TikTok juga lewat SocialKit (`SOCIALKIT_API_KEY`).
+- **SocialKit** butuh instance yang kamu jalankan & rawat sendiri (bukan layanan yang otomatis selalu
+  aktif) — lihat https://github.com/imputnet/SocialKit/blob/main/docs/run-an-instance.md untuk cara
   deploy (Docker / Docker Compose / one-click template).
 
 ---
@@ -220,5 +220,5 @@ Lihat `.env.example` untuk daftar lengkap beserta komentarnya. Ringkasan:
 ## Lisensi
 
 Kode ArulKit ini bisa kamu pakai/modifikasi bebas untuk keperluan pribadi. Pastikan tetap mengikuti
-lisensi masing-masing dependency (lihat `package.json`) dan Terms of Service dari Catbox, Cobalt,
+lisensi masing-masing dependency (lihat `package.json`) dan Terms of Service dari Catbox, SocialKit,
 tikwm, dan Tawk.to saat dipakai di production.

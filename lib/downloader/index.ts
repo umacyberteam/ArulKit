@@ -10,11 +10,6 @@ export { detectPlatform };
 export type { Platform, DownloadResult };
 export { DownloaderError };
 
-/**
- * Routes each supported platform to its configured provider:
- *  - youtube / instagram -> SocialKit (requires SOCIALKIT_API_KEY)
- *  - tiktok                -> TikWM (no key required)
- */
 export async function resolveDownload(rawUrl: string): Promise<DownloadResult> {
   let platform: Platform;
   try {
@@ -31,9 +26,7 @@ export async function resolveDownload(rawUrl: string): Promise<DownloadResult> {
     );
   }
 
-  if (platform === "tiktok") {
-    return tikwm.resolve(rawUrl, platform);
-  }
+  if (platform === "tiktok") return tikwm.resolve(rawUrl, platform);
 
   return socialKit.resolve(rawUrl, platform);
 }

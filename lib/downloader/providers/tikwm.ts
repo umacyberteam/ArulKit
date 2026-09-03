@@ -10,8 +10,7 @@ import {
  * (POST https://www.tikwm.com/api/). It's an unofficial, community-run,
  * free/no-key JSON API that only needs a TikTok URL — used here purely as a
  * zero-configuration fallback so TikTok downloads work out of the box, even
- * before a self-hosted cobalt instance (see ./cobalt.ts) is configured for
- * YouTube/Instagram. It is rate-limited (~1 request/second) and can change
+ * for YouTube/Instagram. It is rate-limited (~1 request/second) and can change
  * without notice since it's unofficial, so it is intentionally scoped to
  * TikTok only.
  */

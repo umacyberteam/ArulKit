@@ -40,16 +40,7 @@ export default function DownloaderPage() {
         <div className="mx-auto mt-14 max-w-xl border-t border-border pt-8 text-sm leading-relaxed text-fg/50">
           <p>
             TikTok berjalan langsung tanpa konfigurasi tambahan. Untuk YouTube
-            dan Instagram, pemilik situs perlu menjalankan instance{" "}
-            <a
-              href="https://github.com/imputnet/cobalt"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brass hover:underline"
-            >
-              cobalt
-            </a>{" "}
-            sendiri (lihat README project). Gunakan hanya untuk konten yang
+            dan Instagram, pemilik situs perlu mengisi <code className="font-mono text-xs">SOCIALKIT_API_KEY</code> di environment variables Vercel. Gunakan hanya untuk konten yang
             memang kamu punya haknya.
           </p>
         </div>

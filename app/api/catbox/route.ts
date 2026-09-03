@@ -6,6 +6,7 @@ export const dynamic = "force-dynamic";
 // Catbox's documented single-file upload limit.
 const MAX_UPLOAD_BYTES = 200 * 1024 * 1024; // 200MB
 const CATBOX_API_URL = "https://catbox.moe/user/api.php";
+const USER_AGENT = "ArulKit/1.0";
 
 export async function POST(req: NextRequest) {
   const incomingForm = await req.formData().catch(() => null);
@@ -44,6 +45,7 @@ export async function POST(req: NextRequest) {
     res = await fetch(CATBOX_API_URL, {
       method: "POST",
       body: outgoing,
+      headers: { "User-Agent": USER_AGENT },
       signal: controller.signal,
     });
   } catch (err) {
@@ -64,7 +66,9 @@ export async function POST(req: NextRequest) {
 
   if (!res.ok || !text.startsWith("http")) {
     return NextResponse.json(
-      { error: text || "Catbox menolak upload ini." },
+      { error: text === "Invalid uploader"
+          ? "Catbox menolak uploader dari server ini. Ini biasanya blokir/penyaringan sisi Catbox, bukan file kamu."
+          : text || "Catbox menolak upload ini." },
       { status: 502 }
     );
   }
