@@ -117,7 +117,7 @@ export function DownloaderForm() {
             <p>{state.message}</p>
             {state.code === "not_configured" && (
               <p className="mt-1 text-xs text-danger/80">
-                Pemilik situs perlu mengatur <code className="font-mono">COBALT_API_URL</code> di
+                Pemilik situs perlu mengatur <code className="font-mono">SOCIALKIT_API_KEY</code> di
                 environment variables. Lihat README.
               </p>
             )}

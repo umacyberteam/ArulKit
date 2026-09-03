@@ -1,9 +1,9 @@
 import { detectPlatform } from "./detect-platform";
-import { CobaltProvider } from "./providers/cobalt";
+import { SocialKitProvider } from "./providers/socialkit";
 import { TikwmProvider } from "./providers/tikwm";
 import { DownloaderError, DownloadResult, Platform } from "./types";
 
-const cobalt = new CobaltProvider();
+const socialKit = new SocialKitProvider();
 const tikwm = new TikwmProvider();
 
 export { detectPlatform };
@@ -11,10 +11,9 @@ export type { Platform, DownloadResult };
 export { DownloaderError };
 
 /**
- * Resolves a URL to downloadable media, auto-detecting the platform and
- * routing to the best available provider:
- *  - youtube / instagram  -> cobalt (requires COBALT_API_URL)
- *  - tiktok                -> cobalt if configured, else tikwm (no config needed)
+ * Routes each supported platform to its configured provider:
+ *  - youtube / instagram -> SocialKit (requires SOCIALKIT_API_KEY)
+ *  - tiktok                -> TikWM (no key required)
  */
 export async function resolveDownload(rawUrl: string): Promise<DownloadResult> {
   let platform: Platform;
@@ -33,10 +32,8 @@ export async function resolveDownload(rawUrl: string): Promise<DownloadResult> {
   }
 
   if (platform === "tiktok") {
-    if (cobalt.isConfigured()) return cobalt.resolve(rawUrl, platform);
     return tikwm.resolve(rawUrl, platform);
   }
 
-  // youtube / instagram
-  return cobalt.resolve(rawUrl, platform);
+  return socialKit.resolve(rawUrl, platform);
 }
