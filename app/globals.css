@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light theme (values are "R G B" so Tailwind can apply opacity modifiers) */
+  --color-bg: 247 245 241; /* #F7F5F1 paper */
+  --color-surface: 255 255 255;
+  --color-border: 228 224 216; /* #E4E0D8 */
+  --color-fg: 18 20 26; /* #12141A ink */
+}
+
+.dark {
+  /* Dark theme (default for this site) */
+  --color-bg: 18 20 26; /* #12141A ink */
+  --color-surface: 27 30 39; /* #1B1E27 */
+  --color-border: 42 46 58; /* #2A2E3A */
+  --color-fg: 247 245 241; /* #F7F5F1 paper */
+}
+
+* {
+  border-color: rgb(var(--color-border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-bg text-fg antialiased;
+  font-feature-settings: "cv11", "ss01";
+}
+
+::selection {
+  background-color: rgb(232 163 61 / 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Thin, understated scrollbar for the view-source code panel */
+.code-scroll::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.code-scroll::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--color-border));
+  border-radius: 4px;
+}

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#12141A"/>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#2A2E3A" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="fade" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#12141A" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#12141A" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#fade)"/>
+
+  <text x="90" y="260" font-family="IBM Plex Mono, monospace" font-size="22" fill="#E8A33D">arulkit.my.id</text>
+  <text x="88" y="340" font-family="Sora, sans-serif" font-size="72" font-weight="700" fill="#F7F5F1">[ArulKit]</text>
+  <text x="90" y="400" font-family="IBM Plex Sans, sans-serif" font-size="28" fill="#F7F5F1" fill-opacity="0.7">Toolkit harian, dirapikan di satu tempat.</text>
+
+  <g transform="translate(90,440)">
+    <rect x="0" y="0" width="180" height="44" rx="6" fill="none" stroke="#2A2E3A"/>
+    <text x="20" y="28" font-family="IBM Plex Mono, monospace" font-size="16" fill="#F7F5F1" fill-opacity="0.8">Catbox Upload</text>
+
+    <rect x="196" y="0" width="230" height="44" rx="6" fill="none" stroke="#2A2E3A"/>
+    <text x="216" y="28" font-family="IBM Plex Mono, monospace" font-size="16" fill="#F7F5F1" fill-opacity="0.8">All-in-One Downloader</text>
+
+    <rect x="442" y="0" width="170" height="44" rx="6" fill="none" stroke="#2A2E3A"/>
+    <text x="462" y="28" font-family="IBM Plex Mono, monospace" font-size="16" fill="#F7F5F1" fill-opacity="0.8">View Source</text>
+  </g>
+
+  <circle cx="1080" cy="90" r="5" fill="#4FD1C5"/>
+</svg>
