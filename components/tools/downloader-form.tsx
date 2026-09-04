@@ -160,8 +160,6 @@ export function DownloaderForm() {
               <a
                 key={f.id}
                 href={f.url}
-                target="_blank"
-                rel="noopener noreferrer"
                 download
                 className={cn(
                   "flex items-center justify-between rounded-md border border-border bg-bg px-4 py-3 text-sm transition-colors hover:border-brass/60"

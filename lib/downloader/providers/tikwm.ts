@@ -14,6 +14,15 @@ import {
  * without notice since it's unofficial, so it is intentionally scoped to
  * TikTok only.
  */
+
+function toProxyUrl(sourceUrl: string, filename: string): string {
+  const params = new URLSearchParams({
+    url: sourceUrl,
+    filename,
+  });
+  return `/api/downloader/proxy?${params.toString()}`;
+}
+
 export class TikwmProvider implements DownloaderProvider {
   name = "tikwm";
   supports: Platform[] = ["tiktok"];
@@ -71,21 +80,21 @@ export class TikwmProvider implements DownloaderProvider {
       d.hdplay && {
         id: "hd",
         label: "Video HD (tanpa watermark)",
-        url: d.hdplay as string,
+        url: toProxyUrl(d.hdplay as string, "tiktok-video-hd.mp4"),
         ext: "mp4",
         isAudio: false,
       },
       d.play && {
         id: "sd",
         label: "Video (tanpa watermark)",
-        url: d.play as string,
+        url: toProxyUrl(d.play as string, "tiktok-video.mp4"),
         ext: "mp4",
         isAudio: false,
       },
       d.music && {
         id: "audio",
         label: "Audio saja (MP3)",
-        url: d.music as string,
+        url: toProxyUrl(d.music as string, "tiktok-audio.mp3"),
         ext: "mp3",
         isAudio: true,
       },
