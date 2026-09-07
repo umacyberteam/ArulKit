@@ -5,7 +5,7 @@ import {
   Platform,
 } from "../types";
 
-const API = "https://api.siputzx.my.id/api/d/fastdl";
+const API = "https://api.siputzx.my.id/api/d/sssinstagram";
 
 /** Instagram provider using SiputZX's public FastDL endpoint. */
 export class SiputzxProvider implements DownloaderProvider {
