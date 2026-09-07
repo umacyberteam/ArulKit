@@ -16,7 +16,7 @@ const MAX_POLL_MS = 25_000;
  */
 export class SocialKitProvider implements DownloaderProvider {
   name = "socialkit";
-  supports: Platform[] = ["youtube", "instagram"];
+  supports: Platform[] = ["youtube"];
 
   private get key() {
     return process.env.SOCIALKIT_API_KEY?.trim();
