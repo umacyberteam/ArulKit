@@ -1,10 +1,12 @@
 import { detectPlatform } from "./detect-platform";
 import { SocialKitProvider } from "./providers/socialkit";
 import { TikwmProvider } from "./providers/tikwm";
+import { SiputzxProvider } from "./providers/siputzx";
 import { DownloaderError, DownloadResult, Platform } from "./types";
 
 const socialKit = new SocialKitProvider();
 const tikwm = new TikwmProvider();
+const siputzx = new SiputzxProvider();
 
 export { detectPlatform };
 export type { Platform, DownloadResult };
@@ -27,6 +29,7 @@ export async function resolveDownload(rawUrl: string): Promise<DownloadResult> {
   }
 
   if (platform === "tiktok") return tikwm.resolve(rawUrl, platform);
+  if (platform === "instagram") return siputzx.resolve(rawUrl, platform);
 
   return socialKit.resolve(rawUrl, platform);
 }
