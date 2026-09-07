@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "ArulKit",
   tagline: "Toolkit harian, cocok untuk editor.",
   description:
-    "ArulKit adalah kumpulan tools all-in-one. upload file, download video, dan lihat source code website. dibuat dan dikembangkan oleh DevRulzz.",
+    "ArulKit adalah kumpulawn tools all-in-one. upload file, download video, dan lihat source code website. dibuat dan dikembangkan oleh DevRulzz.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://arulkit.my.id",
   author: {
     name: "Arul",
