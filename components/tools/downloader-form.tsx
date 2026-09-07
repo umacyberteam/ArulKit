@@ -150,7 +150,7 @@ export function DownloaderForm() {
                 </p>
               )}
               <p className="mt-0.5 font-mono text-xs text-fg/40">
-                via {state.result.provider}
+                via ArulKit
               </p>
             </div>
           </div>
