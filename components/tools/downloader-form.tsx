@@ -1,15 +1,7 @@
 "use client";
 
 import { useMemo, useState, type FormEvent } from "react";
-import {
-  Youtube,
-  Instagram,
-  Music2,
-  Link2,
-  Download,
-  AlertCircle,
-  ImageIcon,
-} from "lucide-react";
+import { Instagram, Music2, Link2, Download, AlertCircle, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { detectPlatform } from "@/lib/downloader/detect-platform";
@@ -22,11 +14,7 @@ type State =
   | { status: "success"; result: DownloadResult }
   | { status: "error"; message: string; code?: string };
 
-const PLATFORM_META: Record<
-  Exclude<Platform, "unknown">,
-  { label: string; icon: typeof Youtube }
-> = {
-  youtube: { label: "YouTube", icon: Youtube },
+const PLATFORM_META: Record<Exclude<Platform, "unknown">, { label: string; icon: typeof Instagram }> = {
   instagram: { label: "Instagram", icon: Instagram },
   tiktok: { label: "TikTok", icon: Music2 },
 };
@@ -57,20 +45,13 @@ export function DownloaderForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        setState({
-          status: "error",
-          message: data.error || "Gagal memproses link ini.",
-          code: data.code,
-        });
+        setState({ status: "error", message: data.error || "Gagal memproses link ini.", code: data.code });
         return;
       }
 
       setState({ status: "success", result: data });
     } catch {
-      setState({
-        status: "error",
-        message: "Tidak bisa terhubung ke server. Cek koneksi internet kamu.",
-      });
+      setState({ status: "error", message: "Tidak bisa terhubung ke server. Cek koneksi internet kamu." });
     }
   }
 
@@ -84,44 +65,23 @@ export function DownloaderForm() {
           <input
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="Tempel link YouTube, Instagram, atau TikTok…"
+            placeholder="Tempel link Instagram atau TikTok…"
             className="h-12 w-full rounded-md border border-border bg-surface pl-10 pr-3 text-sm outline-none placeholder:text-fg/40 focus:border-brass/60"
           />
         </div>
         <Button type="submit" size="lg" disabled={state.status === "loading"}>
-          {state.status === "loading" ? (
-            <Spinner />
-          ) : (
-            <>
-              <Download className="h-4 w-4" /> Proses
-            </>
-          )}
+          {state.status === "loading" ? <Spinner /> : <><Download className="h-4 w-4" /> Proses</>}
         </Button>
       </form>
 
       <div className="mt-2.5 flex items-center gap-1.5 text-xs text-fg/50">
-        {detected ? (
-          <>
-            <detected.icon className="h-3.5 w-3.5 text-brass" />
-            Platform terdeteksi: {detected.label}
-          </>
-        ) : (
-          url.length > 0 && "Platform belum terdeteksi — YouTube, Instagram, atau TikTok saja."
-        )}
+        {detected ? <><detected.icon className="h-3.5 w-3.5 text-brass" /> Platform terdeteksi: {detected.label}</> : url.length > 0 && "Platform belum terdeteksi — Instagram atau TikTok saja."}
       </div>
 
       {state.status === "error" && (
         <div className="mt-5 flex items-start gap-2 rounded-md border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-          <div>
-            <p>{state.message}</p>
-            {state.code === "not_configured" && (
-              <p className="mt-1 text-xs text-danger/80">
-                Pemilik situs perlu mengatur <code className="font-mono">SOCIALKIT_API_KEY</code> di
-                environment variables. Lihat README.
-              </p>
-            )}
-          </div>
+          <p>{state.message}</p>
         </div>
       )}
 
@@ -130,45 +90,22 @@ export function DownloaderForm() {
           <div className="flex items-start gap-3">
             {state.result.thumbnail ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={state.result.thumbnail}
-                alt=""
-                className="h-16 w-16 shrink-0 rounded-md border border-border object-cover"
-              />
+              <img src={state.result.thumbnail} alt="" className="h-16 w-16 shrink-0 rounded-md border border-border object-cover" />
             ) : (
-              <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md border border-border bg-bg text-fg/30">
-                <ImageIcon className="h-6 w-6" />
-              </span>
+              <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md border border-border bg-bg text-fg/30"><ImageIcon className="h-6 w-6" /></span>
             )}
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium">
-                {state.result.title || "Media siap diunduh"}
-              </p>
-              {state.result.author && (
-                <p className="mt-0.5 text-xs text-fg/50">
-                  oleh {state.result.author}
-                </p>
-              )}
-              <p className="mt-0.5 font-mono text-xs text-fg/40">
-                via ArulKit
-              </p>
+              <p className="truncate text-sm font-medium">{state.result.title || "Media siap diunduh"}</p>
+              {state.result.author && <p className="mt-0.5 text-xs text-fg/50">oleh {state.result.author}</p>}
+              <p className="mt-0.5 font-mono text-xs text-fg/40">via ArulKit</p>
             </div>
           </div>
 
           <div className="mt-4 grid gap-2">
             {state.result.formats.map((f) => (
-              <a
-                key={f.id}
-                href={f.url}
-                download
-                className={cn(
-                  "flex items-center justify-between rounded-md border border-border bg-bg px-4 py-3 text-sm transition-colors hover:border-brass/60"
-                )}
-              >
+              <a key={f.id} href={f.url} download className={cn("flex items-center justify-between rounded-md border border-border bg-bg px-4 py-3 text-sm transition-colors hover:border-brass/60")}>
                 <span className="text-fg/80">{f.label}</span>
-                <span className="flex items-center gap-1.5 text-brass">
-                  <Download className="h-3.5 w-3.5" /> .{f.ext}
-                </span>
+                <span className="flex items-center gap-1.5 text-brass"><Download className="h-3.5 w-3.5" /> .{f.ext}</span>
               </a>
             ))}
           </div>

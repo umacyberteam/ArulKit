@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { UploadCloud, Download, Code2, ArrowRight } from "lucide-react";
+import { Download, Code2, Search, ArrowRight } from "lucide-react";
 import type { ToolMeta } from "@/lib/config/tools";
 import { Badge, StatusDot } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 const ICONS = {
-  "upload-cloud": UploadCloud,
   download: Download,
+  search: Search,
   "code-2": Code2,
 } as const;
 

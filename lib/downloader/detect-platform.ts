@@ -1,10 +1,6 @@
 import { Platform } from "./types";
 
 const PATTERNS: { platform: Platform; test: RegExp }[] = [
-  {
-    platform: "youtube",
-    test: /(^|\.)youtube\.com$|(^|\.)youtu\.be$|(^|\.)music\.youtube\.com$/i,
-  },
   { platform: "instagram", test: /(^|\.)instagram\.com$/i },
   {
     platform: "tiktok",

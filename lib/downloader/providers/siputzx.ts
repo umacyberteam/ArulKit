@@ -136,7 +136,7 @@ export class SiputzxProvider implements DownloaderProvider {
                 ? `Foto ${index + 1}`
                 : "Foto Instagram",
 
-          url: mediaUrl,
+          url: this.toProxyUrl(url, `${isAudio ? "audio" : isVideo ? "video" : "image"}-${index + 1}`, ext),
           ext,
           isAudio,
         };
@@ -174,6 +174,16 @@ export class SiputzxProvider implements DownloaderProvider {
       formats,
       provider: this.name,
     };
+  }
+
+  private toProxyUrl(sourceUrl: string, formatId: string, ext: string): string {
+    const params = new URLSearchParams({
+      platform: "instagram",
+      url: sourceUrl,
+      format: formatId,
+      filename: `instagram-${formatId}.${ext}`,
+    });
+    return `/api/downloader/proxy?${params.toString()}`;
   }
 
   private collectMediaItems(payload: any): any[] {

@@ -1,8 +1,8 @@
-export type Platform = "youtube" | "instagram" | "tiktok" | "unknown";
+export type Platform = "instagram" | "tiktok" | "unknown";
 
 export interface DownloadFormatOption {
   id: string;
-  label: string; // e.g. "720p MP4", "MP3 audio"
+  label: string;
   url: string;
   ext: string;
   isAudio: boolean;
@@ -14,12 +14,10 @@ export interface DownloadResult {
   title?: string;
   thumbnail?: string;
   author?: string;
-  /** Direct-download options when the provider exposes more than one. */
   formats: DownloadFormatOption[];
   provider: string;
 }
 
-/** Thrown by providers for expected, user-facing failures. */
 export class DownloaderError extends Error {
   code:
     | "unsupported"

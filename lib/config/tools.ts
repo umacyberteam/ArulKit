@@ -1,4 +1,4 @@
-export type ToolCategory = "upload" | "downloader" | "developer";
+export type ToolCategory = "downloader" | "anime" | "developer";
 
 export interface ToolMeta {
   slug: string;
@@ -7,43 +7,43 @@ export interface ToolMeta {
   description: string;
   href: string;
   category: ToolCategory;
-  icon: "upload-cloud" | "download" | "code-2";
+  icon: "download" | "search" | "code-2";
   popular?: boolean;
-  addedAt: string; // ISO date, used for "Recently Added"
+  addedAt: string;
   status: "online" | "beta";
 }
 
 export const categories: { id: ToolCategory; label: string }[] = [
-  { id: "upload", label: "Upload" },
   { id: "downloader", label: "Downloader" },
+  { id: "anime", label: "Anime" },
   { id: "developer", label: "Developer" },
 ];
 
 export const tools: ToolMeta[] = [
   {
-    slug: "catbox-upload",
-    name: "Catbox Upload",
-    shortName: "Upload",
-    description:
-      "Upload file ke Catbox lewat drag & drop atau file picker, langsung dapat link permanen.",
-    href: "/tools/catbox-upload",
-    category: "upload",
-    icon: "upload-cloud",
-    popular: true,
-    addedAt: "2026-08-20",
-    status: "online",
-  },
-  {
     slug: "downloader",
-    name: "All-in-One Downloader",
+    name: "Social Media Downloader",
     shortName: "Downloader",
     description:
-      "Download video/audio dari YouTube, Instagram, dan TikTok cukup dengan satu link.",
+      "Download media dari Instagram dan TikTok cukup dengan satu link.",
     href: "/tools/downloader",
     category: "downloader",
     icon: "download",
     popular: true,
     addedAt: "2026-08-25",
+    status: "online",
+  },
+  {
+    slug: "anime-searcher",
+    name: "Anime Searcher",
+    shortName: "Anime",
+    description:
+      "Cari anime dari katalog Otakudesu dan lihat detail hasilnya dengan cepat.",
+    href: "/tools/anime-searcher",
+    category: "anime",
+    icon: "search",
+    popular: true,
+    addedAt: "2026-09-08",
     status: "online",
   },
   {

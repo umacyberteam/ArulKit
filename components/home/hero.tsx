@@ -21,8 +21,8 @@ export function Hero() {
             Toolkit harian, dirapikan di satu tempat.
           </h1>
           <p className="mt-5 max-w-md text-base leading-relaxed text-fg/65">
-            Upload file, tarik video dari YouTube, Instagram, dan TikTok,
-            atau intip source code website — tanpa akun, tanpa iklan.
+            Download media dari Instagram dan TikTok, cari anime, atau intip
+            source code website — tanpa akun, tanpa iklan.
             Dibangun dan dirawat langsung oleh Arul.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">

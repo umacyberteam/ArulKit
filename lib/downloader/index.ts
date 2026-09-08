@@ -1,10 +1,8 @@
 import { detectPlatform } from "./detect-platform";
-import { SocialKitProvider } from "./providers/socialkit";
 import { TikwmProvider } from "./providers/tikwm";
 import { SiputzxProvider } from "./providers/siputzx";
 import { DownloaderError, DownloadResult, Platform } from "./types";
 
-const socialKit = new SocialKitProvider();
 const tikwm = new TikwmProvider();
 const siputzx = new SiputzxProvider();
 
@@ -15,7 +13,8 @@ export { DownloaderError };
 export async function resolveDownload(rawUrl: string): Promise<DownloadResult> {
   let platform: Platform;
   try {
-    new URL(rawUrl);
+    const parsed = new URL(rawUrl);
+    if (!/^https?:$/.test(parsed.protocol)) throw new Error("protocol");
     platform = detectPlatform(rawUrl);
   } catch {
     throw new DownloaderError("URL tidak valid.", "invalid_url");
@@ -23,13 +22,11 @@ export async function resolveDownload(rawUrl: string): Promise<DownloadResult> {
 
   if (platform === "unknown") {
     throw new DownloaderError(
-      "Link tidak dikenali. ArulKit hanya mendukung YouTube, Instagram, dan TikTok.",
+      "Link tidak dikenali. ArulKit hanya mendukung Instagram dan TikTok.",
       "unsupported"
     );
   }
 
   if (platform === "tiktok") return tikwm.resolve(rawUrl, platform);
-  if (platform === "instagram") return siputzx.resolve(rawUrl, platform);
-
-  return socialKit.resolve(rawUrl, platform);
+  return siputzx.resolve(rawUrl, platform);
 }
