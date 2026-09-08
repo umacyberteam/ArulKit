@@ -19,7 +19,7 @@ export default function AnimeSearcherPage() {
       <Container className="py-14 sm:py-20">
         <AnimeSearcher />
         <div className="mx-auto mt-14 max-w-3xl border-t border-border pt-8 text-sm leading-relaxed text-fg/50">
-          <p>Data pencarian diambil dari katalog Otakudesu melalui provider SiputZX. Link hasil mengarah ke halaman anime sumber.</p>
+          <p>Data pencarian diambil dari katalog Otakudesu melalui provider ArulKit. Link hasil akan di arahkan ke halaman anime sumber.</p>
         </div>
       </Container>
     </>
