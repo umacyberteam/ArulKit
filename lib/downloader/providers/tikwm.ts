@@ -39,7 +39,7 @@ export class TikwmProvider implements DownloaderProvider {
     let res: Response;
     try {
       res = await fetch("https://www.tikwm.com/api/", {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           "User-Agent": "ArulKit/1.0 (+https://arulkit.my.id)",
