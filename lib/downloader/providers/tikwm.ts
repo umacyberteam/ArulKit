@@ -7,7 +7,7 @@ import {
 
 /**
  * Provider for tikwm.com's public TikTok resolver API
- * (POST https://www.tikwm.com/api/). It's an unofficial, community-run,
+ * (GET https://www.tikwm.com/api/?url=...&hd=1). It's an unofficial, community-run,
  * free/no-key JSON API that only needs a TikTok URL — used here purely as a
  * zero-configuration fallback so TikTok downloads work out of the box, even
  * for Instagram. It is rate-limited (~1 request/second) and can change
@@ -38,13 +38,15 @@ export class TikwmProvider implements DownloaderProvider {
 
     let res: Response;
     try {
-      res = await fetch("https://www.tikwm.com/api/", {
+      const apiUrl = new URL("https://www.tikwm.com/api/");
+      apiUrl.searchParams.set("url", url);
+      apiUrl.searchParams.set("hd", "1");
+
+      res = await fetch(apiUrl.toString(), {
         method: "GET",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
           "User-Agent": "ArulKit/1.0 (+https://arulkit.my.id)",
         },
-        body: new URLSearchParams({ url, hd: "1" }).toString(),
         signal: controller.signal,
       });
     } catch (err) {
