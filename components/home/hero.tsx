@@ -22,15 +22,15 @@ export function Hero() {
           </h1>
           <p className="mt-5 max-w-md text-base leading-relaxed text-fg/65">
             Download media dari Instagram dan TikTok, cari anime, atau intip
-            source code website — tanpa akun, tanpa iklan.
-            Dibangun dan dirawat langsung oleh Arul.
+            source code website. tanpa akun, tanpa iklan.
+            Dikembangkan oleh ArulDev.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <LinkButton href="#tools" size="lg">
               Lihat semua tools
             </LinkButton>
             <LinkButton href="#suggest" variant="outline" size="lg">
-              Usulkan tool baru <ArrowUpRight className="h-4 w-4" />
+              Sarankan tool baru <ArrowUpRight className="h-4 w-4" />
             </LinkButton>
           </div>
         </motion.div>
