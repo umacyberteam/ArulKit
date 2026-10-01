@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, BookOpen } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { LinkButton } from "@/components/ui/link-button";
 
@@ -29,6 +29,15 @@ export function Hero() {
             <LinkButton href="#tools" size="lg">
               Lihat semua tools
             </LinkButton>
+
+            <LinkButton
+              href="https://app.arulkit.my.id"
+              variant="outline"
+              size="lg"
+            >
+              Read Docs <BookOpen className="h-4 w-4" />
+            </LinkButton>
+
             <LinkButton href="#suggest" variant="outline" size="lg">
               Sarankan tool baru <ArrowUpRight className="h-4 w-4" />
             </LinkButton>
@@ -50,7 +59,7 @@ export function Hero() {
           <div className="space-y-3 p-5 leading-relaxed">
             <div className="text-fg/40">$ paste link…</div>
             <div className="rounded-sm border border-border bg-bg px-3 py-2 text-fg/80">
-              https://tiktok.com/@arul/video/812…
+              https://tiktok.com/@xlyinare.zamrulll/vid…
             </div>
             <div className="flex items-center gap-2 text-signal">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-signal" />
