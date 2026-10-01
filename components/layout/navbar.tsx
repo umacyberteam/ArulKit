@@ -6,6 +6,7 @@ const NAV_LINKS = [
   { href: "/#tools", label: "Tools" },
   { href: "/#popular", label: "Popular" },
   { href: "/#suggest", label: "Suggest a tool" },
+  { href: "https://app.arulkit.my.id", label: "Read Docs" },
 ];
 
 export function Navbar() {
